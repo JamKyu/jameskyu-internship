@@ -49,10 +49,10 @@ const HotCollections = () => {
 
   async function getHotCollections() {
     setLoading(true);
-    const res = await axios.get(
+    const { data } = await axios.get(
       `https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`
     );
-    setHotCollections(res.data);
+    setHotCollections(data);
     setLoading(false);
   }
 
