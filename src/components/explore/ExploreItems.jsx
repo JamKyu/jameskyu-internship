@@ -1,9 +1,21 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
 
 const ExploreItems = () => {
+  async function fetchExplore() {
+    const { data } = await axios.get(
+      `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore`
+    );
+    console.log(data);
+  }
+
+  useEffect(() => {
+    fetchExplore();
+  }, []);
+
   return (
     <>
       <div>
