@@ -72,9 +72,9 @@ const HotCollections = () => {
           </div>
           {loading ? (
             <div className="navigation-wrapper">
-              {new Array(6).fill(0).map((_, index) => (
-                <div ref={sliderRef} className="keen-slider" key={index}>
-                  <div className="nft_coll keen-slider__slide">
+              <div ref={sliderRef} className="keen-slider">
+                {new Array(6).fill(0).map((_, index) => (
+                  <div className="nft_coll keen-slider__slide" key={index}>
                     <div className="nft_wrap">
                       <Link to="">
                         <Skeleton width="100%" height="180px" />
@@ -98,8 +98,8 @@ const HotCollections = () => {
                       <Skeleton width="69px" height="20px" />
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
               <>
                 <Arrow left onClick={() => instanceRef.current?.prev()} />
                 <Arrow onClick={() => instanceRef.current?.next()} />
