@@ -1,9 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
 
 const AuthorItems = () => {
+  const { id } = useParams();
+  
+  async function getAuthor() {
+    const { data } = await axios.get(
+      `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
+    );
+    console.log(data);
+  }
+
+  useEffect(() => {
+    getAuthor();
+  }, []);
+
   return (
     <div className="de_tab_content">
       <div className="tab-1">
