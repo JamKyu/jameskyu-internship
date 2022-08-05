@@ -8,29 +8,8 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Skeleton from "../UI/Skeleton";
 
 const HotCollections = () => {
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    mode: "free-snap",
-    breakpoints: {
-      "(min-width: 0px)": {
-        slides: {
-          perView: 1,
-        },
-      },
-      "(min-width: 600px)": {
-        slides: {
-          perView: 2,
-          spacing: 24,
-        },
-      },
-      "(min-width: 1000px)": {
-        slides: {
-          perView: 4,
-          spacing: 24,
-        },
-      },
-    },
-  });
+  const [options, setOptions] = useState({});
+  const [sliderRef, instanceRef] = useKeenSlider(options);
 
   function Arrow(props) {
     return (
@@ -58,15 +37,38 @@ const HotCollections = () => {
 
   useEffect(() => {
     getHotCollections();
+    setOptions({
+      loop: true,
+      mode: "free-snap",
+      breakpoints: {
+        "(min-width: 0px)": {
+          slides: {
+            perView: 1,
+          },
+        },
+        "(min-width: 600px)": {
+          slides: {
+            perView: 2,
+            spacing: 24,
+          },
+        },
+        "(min-width: 1000px)": {
+          slides: {
+            perView: 4,
+            spacing: 24,
+          },
+        },
+      },
+    });
   }, []);
 
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fade-up">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>Hot Collections</h2>
+              <h2 data-aos="fade-up">Hot Collections</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
@@ -109,31 +111,33 @@ const HotCollections = () => {
             <div className="navigation-wrapper">
               <div ref={sliderRef} className="keen-slider">
                 {hotCollections.map((item, index) => (
-                  <div className="nft_coll keen-slider__slide" key={index}>
-                    <div className="nft_wrap">
-                      <Link to={`/item-details/${item.nftId}`}>
-                        <img
-                          src={item.nftImage}
-                          className="lazy img-fluid"
-                          alt=""
-                        />
-                      </Link>
-                    </div>
-                    <div className="nft_coll_pp">
-                      <Link to={`/author/${item.authorId}`}>
-                        <img
-                          className="lazy pp-coll"
-                          src={item.authorImage}
-                          alt=""
-                        />
-                      </Link>
-                      <i className="fa fa-check"></i>
-                    </div>
-                    <div className="nft_coll_info">
-                      <Link to={`/item-details/${item.nftId}`}>
-                        <h4>{item.title}</h4>
-                      </Link>
-                      <span>ERC-{item.code}</span>
+                  <div className="keen-slider__slide" key={index}>
+                    <div className="nft_coll">
+                      <div className="nft_wrap">
+                        <Link to={`/item-details/${item.nftId}`}>
+                          <img
+                            src={item.nftImage}
+                            className="lazy img-fluid"
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="nft_coll_pp">
+                        <Link to={`/author/${item.authorId}`}>
+                          <img
+                            className="lazy pp-coll"
+                            src={item.authorImage}
+                            alt=""
+                          />
+                        </Link>
+                        <i className="fa fa-check"></i>
+                      </div>
+                      <div className="nft_coll_info">
+                        <Link to={`/item-details/${item.nftId}`}>
+                          <h4>{item.title}</h4>
+                        </Link>
+                        <span>ERC-{item.code}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
