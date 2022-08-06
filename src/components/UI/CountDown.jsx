@@ -15,6 +15,10 @@ export default function CountDown({ expiryDate }) {
 
   useEffect(() => {
     convertMs();
+    const interval = setInterval(() => {
+      convertMs();
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return <div className="de_countdown">{count}</div>;
